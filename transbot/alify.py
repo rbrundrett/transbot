@@ -1,6 +1,27 @@
 from string import join
 import random
 
+"""
+Dirty Globals
+"""
+HYPHEN_FREQ = 20
+APOS_FREQ = 6
+QUOTE_FREQ = 20
+RAND_CASE_FREQ = 60
+UPPERCASE_FREQ = 60
+COMMA_FREQ = 5
+
+
+"""
+Utility Functions
+"""
+def percent_chance():
+    """
+        Return a random in between 1 and 100
+    """
+    return random.randint(1, 100)
+
+
 def alify(command, channel):
     """
         Receives commands directed at the bot and determines if they
@@ -20,34 +41,34 @@ def alify(command, channel):
             xs[xs.index(x)]=new_word
             x=new_word
         #add random hyphen
-        if random.randint(1, 10)<2:
+        if percent_chance() < HYPHEN_FREQ:
             i=random.randint(1,len(x))
             new_word=x[:i] + "-" + x[i:]
             xs[xs.index(x)]=new_word
             x=new_word
         #add random apostrophe
-        if random.randint(1, 100)<6:
+        if percent_chance() < APOS_FREQ:
             i=random.randint(1,len(x))
             new_word=x[:i] + "'" + x[i:]
             xs[xs.index(x)]=new_word
             x=new_word
         #add random quotes
-        if random.randint(1, 10)<2:
+        if percent_chance() < QUOTE_FREQ:
             new_word='"' + x + '"'
             xs[xs.index(x)]=new_word
             x=new_word
         #add random casing
-        if random.randint(1, 10)<6:
+        if percent_chance() < RAND_CASE_FREQ:
             new_word=x.title()
             xs[xs.index(x)]=new_word
             x=new_word
         #add random upper case
-        if random.randint(1, 100)<6:
+        if percent_chance() < UPPERCASE_FREQ:
             new_word=x.upper()
             xs[xs.index(x)]=new_word
             x=new_word
         #add random commas
-        if random.randint(1, 100)<5 or x[-1:]==",":
+        if percent_chance() < COMMA_FREQ or x[-1:]==",":
             new_word=x + "," * random.randint(1,10)
             xs[xs.index(x)]=new_word
             x=new_word
