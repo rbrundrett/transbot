@@ -58,7 +58,7 @@ def handle_trans_cmd(command, channel):
         response = translator.translate(message, lang_from='en', lang_to='hi')
         response = translator.translate(response, lang_from='hi', lang_to='en')
     else:
-        response = alify(command, channel)
+        response = alify.alify(command, channel)
     slack_client.api_call("chat.postMessage", channel=channel,
                             text=response, as_user=True)
 
