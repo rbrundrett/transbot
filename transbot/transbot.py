@@ -38,24 +38,24 @@ def handle_trans_cmd(command, channel):
     """
     if command.startswith("nazify"):
         message = command.split(' ', 1)[1]
-        response = translator.translate(message, lang_from='en', lang_to='de')
+        response = translator.translate(message, lang_from='', lang_to='de')
     elif command.startswith("-nazify"):
         message = command.split(' ', 1)[1]
-        response = translator.translate(message, lang_from='en', lang_to='de')
+        response = translator.translate(message, lang_from='', lang_to='de')
         response = translator.translate(response, lang_from='de', lang_to='en')
     elif command.startswith("rusify"):
         message = command.split(' ', 1)[1]
-        response = translator.translate(message, lang_from='en', lang_to='ru')
+        response = translator.translate(message, lang_from='', lang_to='ru')
     elif command.startswith("-rusify"):
         message = command.split(' ', 1)[1]
-        response = translator.translate(message, lang_from='en', lang_to='ru')
+        response = translator.translate(message, lang_from='', lang_to='ru')
         response = translator.translate(response, lang_from='ru', lang_to='en')
     elif command.startswith("hindify"):
         message = command.split(' ', 1)[1]
-        response = translator.translate(message, lang_from='en', lang_to='hi')
+        response = translator.translate(message, lang_from='', lang_to='hi')
     elif command.startswith("-hindify"):
         message = command.split(' ', 1)[1]
-        response = translator.translate(message, lang_from='en', lang_to='hi')
+        response = translator.translate(message, lang_from='', lang_to='hi')
         response = translator.translate(response, lang_from='hi', lang_to='en')
     else:
         response = alify.alify(command, channel)
