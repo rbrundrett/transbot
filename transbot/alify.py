@@ -68,15 +68,17 @@ def rand_hyphen(s1,s2):
 def rand_apos(s):
     """
     Given a string, see if it's plural and make it possessive
+    Only if len(s)>3 characters, removing "is", "was", etc from consideration
     """
-    if percent_chance() < APOS_FREQ and s[-1:].lower() == 's':
-        s = s.rsplit('s', 1)[0] + "'s"
-    if percent_chance() < APOS_FREQ and len(s) > 1 and s[-1:] == '!' and s[-2:][0] == 's':
-        s_list = s.rsplit('s', 1)
-        s = s_list[0] + "'s" + s_list[1]
-    if percent_chance() < APOS_FREQ and len(s) > 1 and s[-1:] == '!' and s[-2:][0] == 'S':
-        s_list = s.rsplit('S', 1)
-        s = s_list[0] + "'S" + s_list[1]
+    if len(s) > 3:
+        if percent_chance() < APOS_FREQ and s[-1:].lower() == 's':
+            s = s.rsplit('s', 1)[0] + "'s"
+        if percent_chance() < APOS_FREQ and len(s) > 1 and s[-1:] == '!' and s[-2:][0] == 's':
+            s_list = s.rsplit('s', 1)
+            s = s_list[0] + "'s" + s_list[1]
+        if percent_chance() < APOS_FREQ and len(s) > 1 and s[-1:] == '!' and s[-2:][0] == 'S':
+            s_list = s.rsplit('S', 1)
+            s = s_list[0] + "'S" + s_list[1]
     return s
 
 
@@ -111,7 +113,7 @@ def rand_title(s):
     """
     Given a string, randomly title case it
     """
-    if percent_chance() < TITLE_CASE_FREQ:
+    if percent_chance() < TITLE_CASE_FREQ and "'" not in s:
         s = s.title()
     return s
 
