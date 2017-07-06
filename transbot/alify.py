@@ -5,11 +5,14 @@ import random
 Dirty Globals
 """
 HYPHEN_FREQ = 6
-APOS_FREQ = 20
+APOS_FREQ = 70
 QUOTE_FREQ = 10
 TITLE_CASE_FREQ = 60
 UPPERCASE_FREQ = 10
 COMMA_FREQ = 5
+SIG_FREQ = 20
+COLON_FREQ = 5
+SEMICOLON_FREQ = 5
 
 
 """
@@ -41,6 +44,17 @@ def miner(s):
     return s
 
 
+def rand_al_sig(s):
+    """
+    Given a string, randomly prepend / append AL signature
+    """
+    if percent_chance() < SIG_FREQ:
+        s = s + " {}{}".format(random.sample([" ",",",",,","-"],1)[0],"AL")
+    if percent_chance() < SIG_FREQ and s.find('AL') < 0:
+        s = "AL{}{}".format(random.sample([" ",",",",,","-"],1)[0],s)
+    return s
+
+
 def rand_hyphen(s1,s2):
     """
     Given two strings, randomly concat them with a random hyphen
@@ -57,6 +71,12 @@ def rand_apos(s):
     """
     if percent_chance() < APOS_FREQ and s[-1:].lower() == 's':
         s = s.rsplit('s', 1)[0] + "'s"
+    if percent_chance() < APOS_FREQ and len(s) > 1 and s[-1:] == '!' and s[-2:][0] == 's':
+        s_list = s.rsplit('s', 1)
+        s = s_list[0] + "'s" + s_list[1]
+    if percent_chance() < APOS_FREQ and len(s) > 1 and s[-1:] == '!' and s[-2:][0] == 'S':
+        s_list = s.rsplit('S', 1)
+        s = s_list[0] + "'S" + s_list[1]
     return s
 
 
@@ -66,6 +86,24 @@ def rand_quote(s):
     """
     if percent_chance() < QUOTE_FREQ:
         s = '"' + s + '"'
+    return s
+
+
+def rand_colon(s):
+    """
+    Given a string, randomly append colons to it
+    """
+    if percent_chance() < COLON_FREQ and s.find(';') < 0:
+        s = s + ':'
+    return s
+
+
+def rand_semicolon(s):
+    """
+    Given a string, randomly append semicolons to it
+    """
+    if percent_chance() < SEMICOLON_FREQ and s.find(':') < 0:
+        s = s + ';'
     return s
 
 
@@ -92,7 +130,7 @@ def rand_comma(s):
     Given a string, randomly add commas to it
     """
     if percent_chance() < COMMA_FREQ:
-        s = s + "," * random.randint(1,4)
+        s = "," * random.randint(1,4) + s + "," * random.randint(1,4)
     return s
 
 
@@ -108,11 +146,11 @@ def alify(command, channel):
     """
     ' '.join(i.capitalize() for i in command.split(' '))
     xs = command.split(" ")
-    fList = [laptop, miner, rand_apos, rand_quote, rand_title, rand_upper, rand_comma]
+    fList = [laptop, miner, rand_quote, rand_title, rand_upper, rand_comma, rand_colon, rand_semicolon, rand_apos]
     xs = map_funcs(xs, fList)
     xs = reduce(rand_hyphen, xs)
-    return xs
-    response = " ".join(xs)
+    xs = rand_al_sig(xs)
+    response = xs
     if command == "version":
         response = "transbot version 1.3"
 
@@ -122,4 +160,4 @@ def alify(command, channel):
 
 
 if __name__ == "__main__":
-    print alify("Got to take a laptop and give it always always a piece of my mind!", "")
+    print alify("Remember not to ever take me seriously when especially I am with your mothers!", "")
