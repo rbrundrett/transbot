@@ -108,7 +108,7 @@ def alify(command, channel):
     """
     ' '.join(i.capitalize() for i in command.split(' '))
     xs = command.split(" ")
-    fList = [laptop, miner, rand_apos, rand_quote, rand_title, rand_upper]
+    fList = [laptop, miner, rand_apos, rand_quote, rand_title, rand_upper, rand_comma]
     xs = map_funcs(xs, fList)
     xs = reduce(rand_hyphen, xs)
     return xs
