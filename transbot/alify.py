@@ -92,7 +92,7 @@ def rand_comma(s):
     Given a string, randomly add commas to it
     """
     if percent_chance() < COMMA_FREQ:
-        s = s + "," * random.randint(1,10)
+        s = s + "," * random.randint(1,4)
     return s
 
 
