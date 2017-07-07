@@ -57,6 +57,8 @@ def handle_trans_cmd(command, channel):
         message = command.split(' ', 1)[1]
         response = translator.translate(message, lang_from='', lang_to='hi')
         response = translator.translate(response, lang_from='hi', lang_to='en')
+    elif command == "version":
+        response = "transbot version 2.0"
     else:
         response = alify.alify(command, channel)
     slack_client.api_call("chat.postMessage", channel=channel,
