@@ -61,6 +61,7 @@ def handle_trans_cmd(command, channel):
         response = "transbot version 2.0"
     else:
         response = alify.alify(command, channel)
+##    response = response + "{}".format(random.sample(["  Also, I really don't think @tterdnurb should be punished further..."," and really guys, don't you think @tterdnurb has been persecuted enough?"," also, I remember when the Social Justice Tribunal focused on 'Justice' #freetterdnurb"],1)[0] )
     slack_client.api_call("chat.postMessage", channel=channel,
                             text=response, as_user=True)
 
