@@ -1,3 +1,4 @@
+#!/usr/bin/python2.7
 import os
 from string import join
 import time
