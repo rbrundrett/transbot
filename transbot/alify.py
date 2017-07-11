@@ -137,7 +137,7 @@ def rand_comma(s):
 
 
 def map_funcs(obj, func_list):
-    return reduce((lambda x, y: [s if s.find('@') > -1 else y(s) for s in x]), func_list, obj)
+    return reduce((lambda x, y: [s.strip("@") if s.find('@') > -1 else y(s) for s in x]), func_list, obj)
 
 
 def alify(command, channel):
