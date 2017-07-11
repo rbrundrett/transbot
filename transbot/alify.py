@@ -153,8 +153,6 @@ def alify(command, channel):
     xs = reduce(rand_hyphen, xs)
     xs = rand_al_sig(xs)
     response = xs
-    if command == "version":
-        response = "transbot version 1.3"
 
     #slack_client.api_call("chat.postMessage", channel=channel,
     #                      text=response, as_user=True)
