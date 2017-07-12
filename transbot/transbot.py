@@ -30,6 +30,19 @@ EXAMPLE_COMMAND = "do"
 TRANS_COMMAND = "nazify"
 
 
+def fix_usernames(command):
+    api_call = slack_client.api_call("users.list")
+    if api_call.get('ok'):
+        # retrieve all users so we can find our bot
+        users = api_call.get('members')
+        names = command.split(" ")
+        for name in names:
+            if name[1] == "@":
+                for user in users:
+                    if 'name' in user and user.get('id') == name[2:-1].upper():
+                        names[names.index(name)]=user.get('name')                    
+    response = " ".join(names)
+    return  response
 
 
 def handle_trans_cmd(command, channel):
@@ -38,6 +51,7 @@ def handle_trans_cmd(command, channel):
         are valid commands. If so, then acts on the commands. If not,
         returns back what it needs for clarification.
     """
+    command = fix_usernames(command)
     if command.startswith("nazify"):
         message = command.split(' ', 1)[1]
         response = translator.translate(message, lang_from='', lang_to='de')
