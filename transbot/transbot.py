@@ -37,10 +37,11 @@ def fix_usernames(command):
         users = api_call.get('members')
         names = command.split(" ")
         for name in names:
-            if name[1] == "@":
-                for user in users:
-                    if 'name' in user and user.get('id') == name[2:-1].upper():
-                        names[names.index(name)]=user.get('name')                    
+            if len(name) > 1:
+                if name[1] == "@":
+                    for user in users:
+                        if 'name' in user and user.get('id') == name[2:-1].upper():
+                            names[names.index(name)]=user.get('name')                    
     response = " ".join(names)
     return  response
 
